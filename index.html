@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html">
+    <link href="style/bootstrap.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href='style/font-awesome.min.css' rel='stylesheet'>
+    <link href="style/vertical-responsive-menu.min.css" rel="stylesheet">
+    <link href="style/SideBar.css" rel="stylesheet">
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            width:100%;
+            height:100%;
+            margin:0px;
+            padding:0px;
+            overflow:hidden;
+        }
+
+        #viewer {
+            height: calc(100% - 30px);
+            overflow: hidden;
+        }
+
+        #fileSelectionContainer {
+            height: 30px;
+            width: 100%;
+        }
+
+        #fileSelectionContainer * {
+            margin-left: 10px;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        input {
+            height: 16px;
+        }
+    </style>
+    <script src="WebViewer/jquery-3.2.1.min.js"></script>
+    <script src="WebViewer/lib/WebViewer.min.js"></script>
+    <script src="js/vertical-responsive-menu.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/SideBar.js"></script>
+    <script>
+        function loadPDF(element){
+          var viewerElement = $('#viewer');
+          viewerElement.empty();
+          var filename = jQuery(element).find("a").attr('id');
+          console.log('id' + filename);
+          var myWebViewer = new PDFTron.WebViewer({
+            path: "WebViewer/lib",
+            type: "html5",
+            documentType: "pdf",
+            initialDoc: "WebViewer/" + filename + ".pdf"
+          }, viewerElement);
+        }
+
+
+    $(function() {
+        var viewerElement = document.getElementById("viewer");
+        var myWebViewer = new PDFTron.WebViewer({
+          path: "WebViewer/lib",
+          type: "html5",
+          documentType: "pdf",
+          initialDoc: "WebViewer/GettingStarted.pdf"
+        }, viewerElement);
+    });
+    </script>
+
+</head>
+  <body>
+        <header class="header clearfix">
+          <button type="button" id="toggleMenu" class="toggle_menu">
+            <i class="fa fa-bars"></i>
+          </button>
+          <h1>PDF Viewer Demo</h1>
+        </header>
+        <!-- /#sidebar-wrapper -->
+        <nav class="vertical_nav">
+
+          <ul id="js-menu" class="menu">
+
+            <li class="menu--item">
+              <i class="menu--icon  fa fa-fw fa-search"></i>
+              <label class="menu--link" title="Item 1">
+                <a class="sub_menu--link" data-toggle="modal" data-target=".bs-example-modal-lg">Search</a>
+              </label>
+            </li>
+
+            <li class="menu--item">
+              <label class="menu--link" title="Item 1"> 
+                <span class="menu--label" style="text-align: center;">Batch NO: B001-123456</span>
+              </label>
+            </li>
+
+            <li class="menu--item  menu--item__has_sub_menu">
+
+              <label class="menu--link" title="Item 1">
+                <div onclick="changeStatus(this)">
+                  <i class="menu--icon  fa fa-fw fa-square-o"></i>
+                </div>
+                <span class="menu--label">INV-A001</span>
+              </label>
+
+              <ul class="sub_menu">
+                <li class="sub_menu--item">
+                  <div onclick="loadPDF(this)">
+                    <a id="eval_license" class="sub_menu--link">Invoice</a>
+                  </div>                  
+                </li>
+                <li class="sub_menu--item">
+                  <div onclick="loadPDF(this)">
+                      <a id="GettingStarted" class="sub_menu--link">POD</a>
+                  </div>  
+                </li>
+              </ul>
+            </li>
+
+            <li class="menu--item">
+              <a href="#" class="menu--link" title="Item 2">
+                <div onclick="changeStatus(this)">
+                  <i class="menu--icon  fa fa-fw fa-square-o"></i>
+                </div>
+                <span class="menu--label">INV-A002</span>
+              </a>
+            </li>
+
+            <li class="menu--item">
+              <a href="#" class="menu--link" title="Item 3">
+                <div onclick="changeStatus(this)">
+                  <i class="menu--icon  fa fa-fw fa-square-o"></i>
+                </div>
+                <span class="menu--label">INV-A003</span>
+              </a>
+            </li>
+
+            <li class="menu--item  menu--item__has_sub_menu">
+
+              <label class="menu--link" title="Item 4">
+                <div onclick="changeStatus(this)">
+                  <i class="menu--icon  fa fa-fw fa-square-o"></i>
+                </div>
+                <span class="menu--label">INV-A004</span>
+              </label>
+
+              <ul class="sub_menu">
+                <li class="sub_menu--item">
+                  <a href="#" class="sub_menu--link">Submenu</a>
+                </li>
+                <li class="sub_menu--item">
+                  <a href="#" class="sub_menu--link">Submenu</a>
+                </li>
+                <li class="sub_menu--item">
+                  <a href="#" class="sub_menu--link">Submenu</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="menu--item">
+              <a href="#" class="menu--link" title="Item 5">
+                <div onclick="changeStatus(this)">
+                  <i class="menu--icon  fa fa-fw fa-square-o"></i>
+                </div>
+                <span class="menu--label">INV-A005</span>
+              </a>
+            </li>
+
+          </ul>
+
+          <button id="collapse_menu" class="collapse_menu">
+            <i class="collapse_menu--icon  fa fa-fw"></i>
+            <span class="collapse_menu--label">Hide menu</span>
+          </button>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="wrapper" style="height: 100%;">
+          <div id="viewer"></div>
+        </div>
+
+        <!-- Modal HTML embedded directly into document -->
+        <!-- Large modal -->
+        
+
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4>Search</h4>
+              </div>
+              <div class="modal-body">
+                <form role="form" class="form-horizontal">
+                  <div class="form-group">
+                    <div class="row">
+                      <label for="Batch_NO" class="col-xs-2 control-label">Batch NO: </label>
+                      <div class="col-xs-4">                     
+                        <input type="text" class="form-control" id="txt_Batch_NO" placeholder="Entert Batch NO">
+                      </div>
+                      <div class="col-xs-3">
+                        <button class="btn btn-default">Search</button>
+                      </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <table class="table">
+                          <tr class="active">
+                            <td>Batch NO</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <label id="INV-A123456" class="control-label">INV-A123456</label>   
+                            </td>
+                            <td>
+                              <button class="btn btn-default">View</button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <label id="INV-B123456" class="control-label">INV-B123456</label>
+                            </td>
+                            <td>
+                              <button class="btn btn-default">View</button>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                        
+                  </div>
+                </form>
+
+
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+  </body>
+</html>
+          
